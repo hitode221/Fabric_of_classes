@@ -1,6 +1,8 @@
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -17,7 +19,7 @@ class A: public Base{
 public:
 	A() : Base() {};
 	A(int val) : Base(val) {};
-	void show(){ cout << "class A: " << value << endl;}
+	void show(){ cout<< "class A: "<< value << endl;}
 };
 
 class B: public Base{
@@ -25,21 +27,31 @@ public:
 	B() : Base() {};
 	B(int val) : Base(val) {};
 
-	void show(){ cout << "class B: " << value << endl;}
+	void show(){ cout<< "class B: "<< value << endl;}
 };
 
 class C: public Base{
 public:
 	C() : Base() {};
 	C(int val) : Base(val) {};
-	void show(){ cout << "class C: " << value << endl;}
+	void show(){ cout<< "class C: " << value << endl;}
 };
 
 Base* Create(char name, int val){
 	Base * object;
-	if (name == 'A') object = new A(val);
-	if (name == 'B') object = new B(val);
-	if (name == 'C') object = new C(val);
+	switch(name){
+	case 'A':
+		object = new A(val);
+		break;
+	case 'B':
+		object = new B(val);
+		break;
+	case 'C':
+		object = new C(val);
+		break;
+	default:
+		throw "error";
+	}
 	return object;
 }
 

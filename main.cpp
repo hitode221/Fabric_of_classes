@@ -6,6 +6,8 @@
 
 using namespace std;
 
+
+
 class Base {
 protected:
 	int value;
@@ -37,7 +39,9 @@ public:
 	void show(){ cout<< "class C: " << value << endl;}
 };
 
-Base* Create(char name, int val){
+vector<Base*> objects;
+
+void Create(char name, int val){
 	Base * object;
 	switch(name){
 	case 'A':
@@ -52,11 +56,15 @@ Base* Create(char name, int val){
 	default:
 		throw "error";
 	}
-	return object;
+	objects.push_back(object);
+}
+
+void ShowAll(){
+	for(int i = 0; i < objects.size(); i++)
+		objects[i]->show();
 }
 
 int main(){
-	vector<Base*> objects;
 	int n, value;
 	char class_name;
 	string action;
@@ -65,11 +73,10 @@ int main(){
 		cin >> action;
 		if(action == "create"){
 			cin >> class_name >> value;
-			objects.push_back(Create(class_name, value));
+			Create(class_name, value);
 		}
 		else if(action == "showall") 
-			for(int i = 0; i < objects.size(); i++)
-				objects[i]->show();
+			ShowAll();
 		else cout << "Incorrect operation\n"; 
 	}
 	system("pause");
